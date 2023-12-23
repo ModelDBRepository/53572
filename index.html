@@ -1,0 +1,330 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0033)http://www.ece.rice.edu/~jwc/PMN/ -->
+<HTML><HEAD><TITLE>Phrenic Motor Neuron Model - Clark Lab</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<META content="Behrang Amini" name=Author>
+<META content=Software name=pagetype>
+<META 
+content="phrenic motoneuron, phrenic motor neuron, computational modeling, computational model, computational models, persistent sodium current" 
+name=Keywords>
+<META 
+content="A Hodgkin-Huxley-type model of the rat phrenic motor neuron developed at the Clark Lab at the Electrical and Computer Engineering Department at Rice University. Developed by Behrang Amini under the supervision of Dr. John W. Clark, Jr." 
+name=description>
+<META content=global name=distribution>
+<META content=document name=resource-type>
+<META content=en name=language>
+<META content="MSHTML 6.00.2900.2627" name=GENERATOR></HEAD>
+<BODY bgColor=#dddddd>
+<CENTER>
+<TABLE cellSpacing=0 cellPadding=1 width=700 border=0>
+  <TBODY>
+  <TR>
+    <TD bgColor=#000000>
+      <CENTER>
+      <TABLE cellSpacing=0 cellPadding=10 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD bgColor=#ffffff>
+            <CENTER><B><FONT size=+1>A MODEL OF THE RAT PHRENIC MOTOR 
+            NEURON</FONT></B> <BR>B. Amini<SUP><A 
+            href="http://www.uth.tmc.edu/nba/" target=_blank>1</A></SUP> , A. 
+            Bidani<SUP><A 
+            href="http://www.uth.tmc.edu/schools/med/imed/pulmo/index.htm" 
+            target=_blank>2</A></SUP>, J.B. Zwischenberger<SUP><A 
+            href="http://www.utmb.edu/surgery/" target=_blank>3</A></SUP>, <A 
+            href="http://www-ece.rice.edu/ece/faculty/Clark.html">J.W. Clark, 
+            Jr.</A><SUP><A href="http://www.ece.rice.edu/" 
+            target=_blank>4</A></SUP> 
+            <P><FONT size=-1><SUP>1</SUP>Department of Neurobiology and Anatomy, 
+            University of Texas Health Science Center at Houston, Houston, TX, 
+            USA <BR><SUP>2</SUP>Department of Internal Medicine, University of 
+            Texas Health Science Center at Houston, Houston, TX, USA 
+            <BR><SUP>3</SUP>Department of Surgery, University of Texas Medical 
+            Branch, Galveston, TX, USA <BR><SUP>4</SUP>Department of Electrical 
+            and Computer Engineering, Rice University, Houston, TX, USA</FONT> 
+            </CENTER>
+            <HR color=#cccccc noShade SIZE=1>
+            <FONT size=+1>Abstract</FONT><BR>We have developed a model for the 
+            rat phrenic motor neuron (PMN) that robustly replicates many 
+            experimentally observed behaviors of PMNs in response to 
+            pharmacological, ionic, and electrical perturbations using a single 
+            set of parameters. Our model suggests that the after-depolarization 
+            (ADP) response seen in action potentials is a result of the slow 
+            deactivation of the fast sodium channel in the range of the ADP 
+            coupled with the activation of the L-type calcium channel 
+            (I<SUB>CaL</SUB>). This current and its interactions with the small 
+            and large conductance calcium-activated potassium currents 
+            (I<SUB>KCaSK</SUB> and I<SUB>KCaBK</SUB>, respectively) is also 
+            important in the generation of spike frequency adaptation in the 
+            repetitive firing mode of activity. Other aspects of the model 
+            conform very well to experimental observations in both the action 
+            potential and repetitive firing mode of activity, including the role 
+            of I<SUB>KCaSK</SUB> in the medium after-hyperpolarization (AHP), 
+            and the role of I<SUB>KCaBK</SUB> in the fast AHP. We have made a 
+            number of predictions using the model, including the existence of 
+            two putative sodium currents (fast and persistent), as well as, 
+            functional roles for the N- and T-type calcium currents. 
+            <P><FONT size=+1>Computational Aspects</FONT><BR>Simulations were 
+            performed on PCs running Linux and Windows XP and solved using a 
+            5<SUP>th</SUP> order Runge-Kutta-Merson numerical integration 
+            algorithm that includes an automatic step-size adjustment based on 
+            error estimates. The tolerance for the integration was 
+            0.5×10<SUP>-6</SUP>. 
+            <P>The equations were coded in the C language and compiled using the 
+            GNU C-compiler and Microsoft Visual C++ (for Linux and Windows XP, 
+            respectively). The executable (AApmn.exe) looks for a parameter file 
+            (pmn_parsed.d) and an initial condition file (pmn_init_cond.d) in 
+            the same directory. The parameters in pmn_parsed.d are in the 
+            following order: simulation duration (ms), baseline injected current 
+            (nA, for adjusting resting membrane potential), stimulation current 
+            (nA), stimulation start time (ms), stimulation end time (ms), 
+            followed by the maximal conductances for I<SUB>Na</SUB>, 
+            I<SUB>CaL</SUB>, I<SUB>K</SUB>, I<SUB>A</SUB>, I<SUB>D</SUB>, 
+            I<SUB>R</SUB>, I<SUB>BNa</SUB>, I<SUB>BCa</SUB>, I<SUB>NaK</SUB>, 
+            I<SUB>CaP</SUB>, I<SUB>NaCa</SUB>, I<SUB>KCaSK</SUB>, 
+            I<SUB>KCaBK</SUB>, and I<SUB>NaP</SUB>. 
+            <P>The simulation output is written to a text file (pmn_result.dat). 
+            Each row of this file has time as the first column followed by 
+            membrane potential, intracellular calcium, I<SUB>Na</SUB>, 
+            I<SUB>CaL</SUB>, I<SUB>K</SUB>, I<SUB>A</SUB>, I<SUB>D</SUB>, 
+            I<SUB>R</SUB>, I<SUB>BNa</SUB>, I<SUB>BCa</SUB>, I<SUB>NaK</SUB>, 
+            I<SUB>CaP</SUB>, I<SUB>NaCa</SUB>, I<SUB>KCaSK</SUB>, 
+            I<SUB>KCaBK</SUB>, I<SUB>NaP</SUB>, and I<SUB>total</SUB>. A Matlab 
+            (MathWorks, Natick, MA) M-file (ReadResults.m) reads the output file 
+            and assigns variable names to the coulmns. 
+            <P><FONT size=+1>Files to Download</FONT><BR>The aforementioned 
+            files can be downloaded as a tar.gz archive, <A 
+            href="http://www.ece.rice.edu/~jwc/PMN/pmn.tar.gz">pmn.tar.gz</A> (8 
+            KB). A separate archive, <A 
+            href="http://www.ece.rice.edu/~jwc/PMN/pmnMS.zip">pmnMS.zip</A> (46 
+            KB), is presented for the convenience of Microsoft Visual C++ users. 
+            Microsoft windows users without access to Visual C++ can run the 
+            executable (AApmn.exe) found in the Release directory (see below). 
+            This directory also contains the initial condition and parameter 
+            files needed by the program. 
+            <P>The archive contents are shown below. 
+            <P>
+            <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+              <TBODY>
+              <TR>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/zip.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=4>pmn.tar.gz</TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_b.jpg"></TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/dir.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=3><B>pmn</B></TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_c.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=2>makefile</TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_c.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=2>pmn_current.c</TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_c.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=2>pmn_deriv.c</TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_c.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=2>pmn_driver.c</TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_c.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=2>pmn_reader.c</TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_c.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=2>pmn_runge_kutta.c</TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_c.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=2>pmn_subs.h</TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_c.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=2>pmn_init_cond.d</TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_c.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=2>pmn_parsed.d</TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_b.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left 
+              colSpan=2>ReadResults.m</TD></TR></TBODY></TABLE>
+            <P>
+            <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+              <TBODY>
+              <TR>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/zip.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=4>pmnMS.zip</TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_b.jpg"></TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/dir.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=3><B>pmnMS</B></TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_c.jpg"></TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/dir.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=2><B>Release</B></TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_l.jpg"></TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_c.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left>AApmn.exe</TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_l.jpg"></TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_c.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left>pmn_init_cond.d </TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_l.jpg"></TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_c.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left>pmn_parsed.d</TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_l.jpg"></TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_b.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left>ReadResults.m</TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_c.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=2>AApmn.dsp</TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_c.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=2>AApmn.dsw</TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_c.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=2>AApmn.ncb</TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_c.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=2>AApmn.opt</TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_c.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=2>AApmn.plg</TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_c.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=2>pmn_current.c</TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_c.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=2>pmn_deriv.c</TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_c.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=2>pmn_driver.c</TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_c.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=2>pmn_reader.c </TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_c.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=2>pmn_runge_kutta.c 
+</TD></TR>
+              <TR>
+                <TD vAlign=bottom align=right width=18>&nbsp;</TD>
+                <TD vAlign=bottom align=right width=18><IMG 
+                  src="index_files/l_b.jpg"></TD>
+                <TD vAlign=bottom align=left width=18><IMG 
+                  src="index_files/fil.jpg"></TD>
+                <TD vAlign=bottom align=left colSpan=2>pmn_subs.h 
+              </TD></TR></TBODY></TABLE>
+            <HR color=#cccccc noShade SIZE=1>
+            Last modified August 16th, 2003 by Behrang Amini. <BR>Please feel 
+            free to contact me at <A 
+            href="mailto:zyryab@rice.edu?subject=PMN Model Web Page">mailto:zyryab@rice.edu?subject=PMN 
+            Model Web Page</A> with any questions regarding these files. 
+        </TD></TR></TBODY></TABLE></CENTER></TD></TR></TBODY></TABLE></CENTER></BODY></HTML>
