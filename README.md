@@ -65,16 +65,15 @@ The archive contents are shown below.
 |   |  └─| pmn_runge_kutta.c|
 |   |  └─| pmn_subs.h       |
 
----
-
-Last modified August 16th, 2003 by Behrang Amini.
+## Changelog
 Please feel free to contact me at [zyryab@rice.edu](mailto:zyryab@rice.edu?subject=PMN%20Model%20Web%20Page) with any questions regarding these files.
 
----
+Last modified August 16th, 2003 by Behrang Amini.
 
-2025-05-27 – Standardized to Markdown.
+Standardized to Markdown May 27, 2025
 
 [^1]: http://www.uth.tmc.edu/nba/
 [^2]: http://www.uth.tmc.edu/schools/med/imed/pulmo/index.htm
 [^3]: http://www.utmb.edu/surgery/
 [^4]: http://www.ece.rice.edu/
+
